@@ -1,0 +1,24 @@
+[package]
+name = "scl-melody-launcher"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[package.metadata.winres]
+OriginalFilename = "mclauncher.exe"
+ProductName = "MCLauncher"
+FileDescription = "Minecraft启动器"
+LegalCopyright = "原版权所有 忘却的旋律 重置 SteveXMH"
+
+[dependencies]
+scl-core = { path = "../scl/scl-core" }
+scl-gui-widgets = { path = "../scl/scl-gui-widgets" }
+scl-webview = { path = "../scl/scl-webview" }
+
+anyhow = { version = "^1.0" }
+druid = { git = "https://github.com/linebender/druid.git", features = ["im", "serde"] }
+image = { version = "0.24.5" }
+
+[build-dependencies]
+winres = "0.1.12"
