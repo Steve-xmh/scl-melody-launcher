@@ -22,6 +22,7 @@ scl-webview = { path = "../scl/scl-webview" }
 anyhow = { version = "^1.0" }
 druid = { git = "https://github.com/linebender/druid.git", features = ["im", "serde"] }
 image = { version = "0.24.5" }
+pollster = "0.3.0"
 
 [build-dependencies]
 winres = "0.1.12"

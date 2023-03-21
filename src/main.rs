@@ -5,6 +5,7 @@ use druid::{
     widget::Flex,
     AppLauncher, Color, Data, ImageBuf, Insets, Target, Widget, WidgetExt, WindowDesc,
 };
+use pollster::FutureExt;
 use scl_gui_widgets::{
     widgets::{label, Button, WindowWidget, QUERY_CLOSE_WINDOW, SET_BACKGROUND_IMAGE},
     WidgetExt as _,
@@ -19,9 +20,47 @@ fn ui_builder() -> impl Widget<AppState> {
         .with_child(
             Flex::row()
                 .with_flex_spacer(1.)
-                .with_child(Button::new("启动游戏").on_click(|ctx, _, _| {
-                    
-                }).fix_size(149., 74.))
+                .with_child(
+                    Button::new("启动游戏")
+                        .on_click(|_, _, _| {
+                            // 启动游戏
+
+                            // 先提供 .minecraft/versions 路径和要启动的版本名称
+                            let mut version_info = scl_core::version::structs::VersionInfo {
+                                version_base: ".minecraft/versions".into(),
+                                version: "1.19.4".into(),
+                                ..Default::default()
+                            };
+
+                            // 执行加载版本元数据
+                            version_info.load().block_on().unwrap();
+
+                            // 构造客户端对象配置
+                            let config = scl_core::client::ClientConfig {
+                                auth: scl_core::auth::structs::AuthMethod::Offline {
+                                    player_name: "Steve".into(),
+                                    uuid: "".into(),
+                                },
+                                version_info,
+                                java_path: "java".into(),
+                                max_mem: 4096,
+                                version_type: String::new(),
+                                custom_java_args: Vec::new(),
+                                custom_args: Vec::new(),
+                                recheck: false,
+                            };
+
+                            // 创建客户端对象
+                            let mut client =
+                                scl_core::client::Client::new(config).block_on().unwrap();
+
+                            // 启动游戏！
+                            client.launch().block_on().unwrap();
+
+                            std::process::exit(0);
+                        })
+                        .fix_size(149., 74.),
+                )
                 .with_spacer(11.)
                 .with_child(
                     Flex::column()
