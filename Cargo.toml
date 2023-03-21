@@ -15,6 +15,9 @@ LegalCopyright = "原版权所有 忘却的旋律 重置 SteveXMH"
 scl-core = { path = "../scl/scl-core" }
 scl-gui-widgets = { path = "../scl/scl-gui-widgets" }
 scl-webview = { path = "../scl/scl-webview" }
+# scl-core = { git = "https://github.com/Steve-xmh/scl.git" }
+# scl-gui-widgets = { git = "https://github.com/Steve-xmh/scl.git" }
+# scl-webview = { git = "https://github.com/Steve-xmh/scl.git" }
 
 anyhow = { version = "^1.0" }
 druid = { git = "https://github.com/linebender/druid.git", features = ["im", "serde"] }
